@@ -1,11 +1,11 @@
 
 import './App.css';
-import HomepageComponent from './components/HompageComponent/HomepageComponent';
+import Homepage from './pages/HomePage/HomePage';
 
 function App() {
   return (
     <div>
-     <HomepageComponent/>
+     <Homepage/>
     </div>
   );
 }
