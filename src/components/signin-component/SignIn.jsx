@@ -1,37 +1,52 @@
-import React,{useState} from 'react'
+import React, { useState } from "react";
+import ButtonComponent from "../button-component/ButtonComponent";
+import FormInput from "../form-inputComponent/FormInput";
+import "./SignIn.scss";
+import { signInWithGoogle } from "../../firebase/firebase.util";
 
 function SignIn() {
-    const [state, setstate] = useState({email:"", password:""})
+  const [state, setstate] = useState({ email: "", password: "" });
 
-    const handleChangeEvent = (e)=>{
+  const handleChangeEvent = (event) => {
+    const { value, name } = event.target;
 
-        const {value, name} = e
+    setstate({ ...state, [name]: value });
+  };
 
-        setstate({[name]:value})
-    }
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    setstate({ email: "", password: "" });
+    console.log({ state });
+  };
+  return (
+    <div className="sign-in">
+      <h2>I already have an account</h2>
+      <span>Sign in with your email and password</span>
 
-    const handelSubmit =(e)=>{
-            e.preventDefault()
-            setstate({email:"",password:""})
-            console.log({state});
-    }
-    return (
-        <div className="sign-in">
-            <h2>I already have an account</h2>
-            <span>Sign in with your email and password</span>
+      <form onSubmit={handelSubmit}>
+        <FormInput
+          handleChangeEvent={handleChangeEvent}
+          name="email"
+          value={state.email}
+          label="Email"
+        />
 
-            <form onSubmit ={handelSubmit}>
-                <label>Email</label>
-                <input type="email" onChange={handleChangeEvent} name="email" value = {state.email} placeholder="Your email"/>
+        <FormInput
+          handleChangeEvent={handleChangeEvent}
+          name="password"
+          value={state.password}
+          label="Password"
+        />
 
-                <label>Email</label>
-                <input type="password" onChange={handleChangeEvent} name="email" value = {state.password} placeholder="Your email"/>
-
-                <button type="submit">Save</button>
-            </form>
-            
+        <div className="buttons">
+          <ButtonComponent type="submit">Submit</ButtonComponent>
+          <ButtonComponent isGoogleSignInBtn onClick={signInWithGoogle}>
+            Sign in with google{" "}
+          </ButtonComponent>
         </div>
-    )
+      </form>
+    </div>
+  );
 }
 
-export default SignIn
+export default SignIn;
