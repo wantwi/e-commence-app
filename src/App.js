@@ -6,7 +6,7 @@ import Shop from './pages/shop/Shop';
 import {Switch,Route} from "react-router-dom"
 import Header from './components/header-component/Header';
 import Account from './pages/Accout/Account';
-import { auth } from './firebase/firebase.util';
+import { auth,createUserProfile } from './firebase/firebase.util';
 
 function App() {
 
@@ -17,6 +17,10 @@ function App() {
       auth.onAuthStateChanged(user => {
         if(user){
           const {displayName,email,isAnonymous} = user
+
+          createUserProfile(user)
+
+       
        
           setcurrentUser(displayName)
         } 

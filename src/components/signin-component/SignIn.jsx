@@ -40,7 +40,7 @@ function SignIn() {
 
         <div className="buttons">
           <ButtonComponent type="submit">Submit</ButtonComponent>
-          <ButtonComponent isGoogleSignInBtn onClick={signInWithGoogle}>
+          <ButtonComponent type="button" isGoogleSignInBtn onClick={signInWithGoogle}>
             Sign in with google{" "}
           </ButtonComponent>
         </div>
