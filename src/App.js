@@ -8,22 +8,26 @@ import Header from './components/header-component/Header';
 import Account from './pages/Accout/Account';
 import { auth,createUserProfile } from './firebase/firebase.util';
 
+
+
 function App() {
 
     const [currentUser, setcurrentUser] = useState(null)
 
     const getCurrentUser =  async ()=>{
      
-      auth.onAuthStateChanged(user => {
+      auth.onAuthStateChanged( async user => {
+       
         if(user){
-          const {displayName,email,isAnonymous} = user
-
-          createUserProfile(user)
-
+          
+         const userAuth = await createUserProfile(user)
+        
+         setcurrentUser(userAuth)
        
-       
-          setcurrentUser(displayName)
-        } 
+        } else{
+          setcurrentUser(null)
+         
+        }
        
       })
     
@@ -31,21 +35,25 @@ function App() {
 
     useEffect(() => {
       getCurrentUser()
-
-      console.log(currentUser);
-     
-    }, [currentUser])
+      return () => {
+        getCurrentUser()
+      
+      }
+    }, [auth])
+   
+   
 
     
-
+   
   return (
+    
     <div>
       <Header currentUser = {currentUser}/>
       <Switch>
-
+        
         <Route exact path="/" component={Homepage}/>
         <Route  path="/shop" component={Shop}/>
-        <Route  path="/signin" component={Account}/>
+        <Route  path="/signin" component={Account} />
       </Switch>
 
     

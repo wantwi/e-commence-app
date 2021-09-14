@@ -6,6 +6,7 @@ import "./Header.scss";
 import { auth } from "../../firebase/firebase.util";
 
 function Header({ currentUser }) {
+  console.log("Header: ",{currentUser});
   return (
     <div className="header">
       <Link to="/" className="logo-container">

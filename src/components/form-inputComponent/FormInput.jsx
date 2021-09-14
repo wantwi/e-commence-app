@@ -6,12 +6,15 @@ function FormInput(props) {
     return (
         <div className="group">
             <input className="form-input" onChange ={handleChangeEvent} {...others}/>
-            {
-                label ? <label className={`${others.value.label? 'shrink': ''} form-input-label `}>{label}</label> : null
-            }
+            <label className="form-input-label">{label}</label>
+            
             
         </div>
     )
 }
 
 export default FormInput
+
+// {
+//     label ? <label className={`${others.value.label? 'shrink1': ''} form-input-label `}>{label}</label> : label
+// }

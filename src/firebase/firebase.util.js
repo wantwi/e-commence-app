@@ -1,8 +1,8 @@
  
 
  import { initializeApp } from 'firebase/app';
- import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
- import { getFirestore,collection,getDocs, doc, setDoc } from 'firebase/firestore';
+ import { getAuth, GoogleAuthProvider, signInWithPopup,createUserWithEmailAndPassword  } from 'firebase/auth';
+ import { getFirestore,getDoc, doc, setDoc  } from 'firebase/firestore';
 
  // TODO: Add SDKs for Firebase products that you want to use
  // https://firebase.google.com/docs/web/setup#available-libraries
@@ -29,19 +29,64 @@
  export const auth = getAuth();
  export const firestore = getFirestore();
 
+ export const createUser =  async (auth,data)=>{
+   const {displayName} =data
+  
 
- export const createUserProfile =async (userAuth,data)=>{
- 
-    if(!userAuth) return;
-
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach((doc) => {
-      console.log(doc.data());
-    });
+    const {user} = await createUserWithEmailAndPassword(auth, data.email, data.password)
     
 
-//     const userRef = firestore.doc('users/123fdashadu');
-//    console.log(userRef)
+    const currentUser = await  createUserProfile(user,{displayName})
+
+    const docRef = doc(db, "users", currentUser);
+    const docSnap = await getDoc(docRef); 
+
+    return {currentUser,... docSnap.data()};
+ }
+
+ export const createUserProfile =async (userAuth,data)=>{
+
+
+ 
+  const {displayName, email,uid} = userAuth
+
+  const createdAt = new Date();
+    if(!userAuth) return;
+
+    const docRef = doc(db, "users", uid);
+
+    
+    const docSnap = await getDoc(docRef); 
+    
+    if (!docSnap.exists()) {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+      try {
+        
+         // Add a new document in collection "cities"
+         await setDoc(doc(db, "users",uid), {
+          displayName,
+          email,
+          createdAt,
+          ...data
+         
+        });
+
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    return {uid,... docSnap.data()};
+
+    // const querySnapshot = await getDocs(collection(db, "users"));
+    // querySnapshot.forEach((doc) => {
+    //   console.log({doc})
+    //   console.log(doc.data());
+    // });
+    
+
+    
+    
 
 }
  
