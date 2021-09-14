@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ButtonComponent from "../button-component/ButtonComponent";
 import FormInput from "../form-inputComponent/FormInput";
 import "./SignIn.scss";
-import { signInWithGoogle } from "../../firebase/firebase.util";
+import {auth, signInWithGoogle,SignInFunc } from "../../firebase/firebase.util";
 
 function SignIn() {
   const [state, setstate] = useState({ email: "", password: "" });
@@ -13,10 +13,23 @@ function SignIn() {
     setstate({ ...state, [name]: value });
   };
 
-  const handelSubmit = (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
-    setstate({ email: "", password: "" });
-    console.log({ state });
+
+    const {email,password} = state
+    try {
+      const res = await SignInFunc(auth,email,password)
+      console.log({res});
+      setstate({ email: "", password: "" });
+    } catch (error) {
+      console.log(error);
+      
+    }
+
+
+
+   
+    
   };
   return (
     <div className="sign-in">
