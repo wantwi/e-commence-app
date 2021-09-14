@@ -7,12 +7,13 @@ import {Switch,Route} from "react-router-dom"
 import Header from './components/header-component/Header';
 import Account from './pages/Accout/Account';
 import { auth,createUserProfile } from './firebase/firebase.util';
+import {connect} from 'react-redux';
+import { setcurrentUser } from './redux/user/user.action'
 
 
-
-function App() {
-
-    const [currentUser, setcurrentUser] = useState(null)
+function App(props) {
+const {setcurrentUser} = props
+   // const [currentUser, setcurrentUser] = useState(null)
 
     const getCurrentUser =  async ()=>{
      
@@ -48,7 +49,7 @@ function App() {
   return (
     
     <div>
-      <Header currentUser = {currentUser}/>
+      <Header />
       <Switch>
         
         <Route exact path="/" component={Homepage}/>
@@ -61,4 +62,8 @@ function App() {
   );
 }
 
-export default App;
+const mapDispactToProps = dispatch =>({
+  setcurrentUser: user => dispatch (setcurrentUser(user))
+})
+
+export default connect(null,mapDispactToProps)(App);

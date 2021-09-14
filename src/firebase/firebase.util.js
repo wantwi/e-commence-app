@@ -39,13 +39,13 @@
 
     const {user} = await createUserWithEmailAndPassword(auth, data.email, data.password)
     
-
+    await SignInFunc(auth, data.email, data.password)
     const currentUser = await  createUserProfile(user,{displayName})
 
     const docRef = doc(db, "users", currentUser);
     const docSnap = await getDoc(docRef); 
 
-    return {currentUser,... docSnap.data()};
+   // return {currentUser,... docSnap.data()};
  }
 
  export const createUserProfile =async (userAuth,data)=>{
