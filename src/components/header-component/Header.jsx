@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import "./Header.scss";
 import { connect } from "react-redux";
-
 import { auth } from "../../firebase/firebase.util";
+import CardIcon from "../cart-icon/CardIcon";
+import CartDropdown from "../cart-dropdown/CartDropdown";
 
-function Header({ currentUser }) {
+function Header({ currentUser,hidden }) {
   console.log({currentUser});
   return (
     <div className="header">
@@ -27,15 +28,21 @@ function Header({ currentUser }) {
             SIGN IN
           </Link>
         )}
+        <CardIcon/>
       </div>
+          {
+            hidden ? null :  <CartDropdown/>
+          }
+      
     </div>
   );
 }
 
 
 
-const mapStateToProps =(state) =>({
-  currentUser: state.user.currentUser
+const mapStateToProps =({user:{currentUser},cart:{hidden}}) =>({
+  currentUser,
+  hidden
 
 })
 
