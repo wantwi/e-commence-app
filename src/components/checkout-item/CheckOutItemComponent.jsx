@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {
   removeCartItem,
   decreaseCartItem,
-  increaseCartItem,
+ // increaseCartItem,
   addItemsToCart
 } from "../../redux/cart/cart.actions";
 
@@ -12,7 +12,7 @@ function CheckOutItemComponent({
   cartItem: { id, imageUrl, name, price, quantity },
   removeCartItem,
   decreaseCartItem,
-  increaseCartItem,
+ // increaseCartItem,
   addItemsToCart,
   cartItem
 }) {

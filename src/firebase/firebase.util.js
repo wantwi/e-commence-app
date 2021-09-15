@@ -45,7 +45,7 @@
     const docRef = doc(db, "users", currentUser);
     const docSnap = await getDoc(docRef); 
 
-   // return {currentUser,... docSnap.data()};
+   return  docSnap.data();
  }
 
  export const createUserProfile =async (userAuth,data)=>{
@@ -80,7 +80,7 @@
         console.error(error);
       }
     }
-    return {uid,... docSnap.data()};
+    return {uid,...docSnap.data()};
 
     // const querySnapshot = await getDocs(collection(db, "users"));
     // querySnapshot.forEach((doc) => {

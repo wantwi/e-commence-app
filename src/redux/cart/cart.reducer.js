@@ -19,25 +19,25 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         hidden: !state.hidden,
       };
 
-      break;
+     
     case CartActionTypes.ADD_ITEM_TO_CART:
       return {
         ...state,
         cartitems: addItemToCart(state.cartitems, action.payload),
       };
-      break;
+   
     case CartActionTypes.REMOVE_CART_ITEM:
       return {
         ...state,
         cartitems: removeCartItem(state.cartitems, action.payload),
       };
-      break;
+    
     case CartActionTypes.DECREASE_CART_ITEM:
       return {
         ...state,
         cartitems: decreaseCartItem(state.cartitems, action.payload),
       };
-      break;
+    
     case CartActionTypes.INCREASE_CART_ITEM:
       return {
         ...state,
@@ -46,7 +46,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 
     default:
       return state;
-      break;
+    
   }
 };
 

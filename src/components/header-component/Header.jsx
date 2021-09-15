@@ -17,7 +17,7 @@ function Header({ currentUser,hidden }) {
   return (
     <div className="header">
       <Link to="/" className="logo-container">
-        <img className="logo" src={Logo} />
+        <img className="logo" src={Logo} alt="logo" />
       </Link>
       <div className="options">
         <Link className="option" to="/shop">

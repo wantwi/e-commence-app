@@ -4,7 +4,7 @@ import CartItemComponent from "../cart-item/CartItemComponent";
 import "./CartDropdown.scss";
 import { connect } from "react-redux";
 import { selectCartItems } from "../../redux/cart/cart.selector";
-import { Link,withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import {toggleCartHidden} from "../../redux/cart/cart.actions"
 
 function CartDropdown({ carditems,history,dispatch }) {
