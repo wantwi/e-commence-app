@@ -13,7 +13,7 @@ function CollectionItem(props) {
             <div className="image" style={{backgroundImage:`url(${imageUrl})`}}/>
             <div className="collection-footer">
                 <span className="name">{name}</span>
-                <span className="name">{price}</span>
+                <span className="value">GHS {price}</span>
 
             </div>
           <ButtonComponent onClick={()=>addItemsToCart(props.item)} inverted>Add to cart</ButtonComponent>

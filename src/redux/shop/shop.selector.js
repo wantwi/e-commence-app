@@ -1,8 +1,29 @@
 import {createSelector} from "reselect"
 
-const getCollectionData =state => state.collections;
+const COLLECTION_ID_MATCH ={
+    hats:1,
+    sneakers:2,
+    jackets:3,
+    womens:4,
+    mens:5
+}
 
-export const getCollections = createSelector(
-    [getCollectionData],
-    collections => collections
+const selectShop =state => state.shop;
+
+export const selectCollections = createSelector(
+    [selectShop],
+    shop => shop.collections
 )
+
+
+
+export const selectCollectioCategory = collectionId =>createSelector(
+    [selectCollections],
+    collections => collections[collectionId]
+)
+
+export const selectionForPreview  = createSelector(
+    [selectCollections],
+    collections => Object.keys(collections).map(key =>collections[key])
+)
+
