@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import "./Header.scss";
 import { connect } from "react-redux";
 import { auth } from "../../firebase/firebase.util";
 import CardIcon from "../cart-icon/CardIcon";
 import CartDropdown from "../cart-dropdown/CartDropdown";
+import { HeaderContainer,LogoContainer,OptionDiv,OptionLink,OptionsContainer } from "./HeaderComponentStyle";
 
 //new additions
 import {createStructuredSelector} from "reselect"
@@ -15,31 +16,31 @@ import {selectCurrentUser} from "../../redux/user/user.selector"
 function Header({ currentUser,hidden }) {
  
   return (
-    <div className="header">
-      <Link to="/" className="logo-container">
+    <HeaderContainer>
+      <LogoContainer to="/">
         <img className="logo" src={Logo} alt="logo" />
-      </Link>
-      <div className="options">
-        <Link className="option" to="/shop">
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to="/shop">
           SHOP
-        </Link>
-        <Link className="option" to="/shop">
+        </OptionLink>
+        <OptionLink to="/contact">
           CONTACT
-        </Link>
+        </OptionLink>
         {currentUser ? (
-          <div className ="option" onClick ={() =>auth.signOut()}> SIGN OUT</div>
+          <OptionDiv onClick ={() =>auth.signOut()}> SIGN OUT</OptionDiv>
         ) : (
-          <Link className="option" to="/signin">
+          <OptionLink to="/signin">
             SIGN IN
-          </Link>
+          </OptionLink>
         )}
         <CardIcon/>
-      </div> 
+      </OptionsContainer> 
           {
             hidden ? null :  <CartDropdown/>
           }
       
-    </div>
+    </HeaderContainer>
   );
 }
 
@@ -58,3 +59,32 @@ const mapStateToProps = createStructuredSelector ({
 // })
 
 export default connect(mapStateToProps)(Header);
+
+
+// return (
+//   <div className="header">
+//     <Link to="/" className="logo-container">
+//       <img className="logo" src={Logo} alt="logo" />
+//     </Link>
+//     <div className="options">
+//       <Link className="option" to="/shop">
+//         SHOP
+//       </Link>
+//       <Link className="option" to="/shop">
+//         CONTACT
+//       </Link>
+//       {currentUser ? (
+//         <div className ="option" onClick ={() =>auth.signOut()}> SIGN OUT</div>
+//       ) : (
+//         <Link className="option" to="/signin">
+//           SIGN IN
+//         </Link>
+//       )}
+//       <CardIcon/>
+//     </div> 
+//         {
+//           hidden ? null :  <CartDropdown/>
+//         }
+    
+//   </div>
+// );
