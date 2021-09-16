@@ -13,7 +13,7 @@ import {selectCartHidden} from "../../redux/cart/cart.selector"
 import {selectCurrentUser} from "../../redux/user/user.selector"
 
 function Header({ currentUser,hidden }) {
-  console.log({currentUser});
+ 
   return (
     <div className="header">
       <Link to="/" className="logo-container">
@@ -34,7 +34,7 @@ function Header({ currentUser,hidden }) {
           </Link>
         )}
         <CardIcon/>
-      </div>
+      </div> 
           {
             hidden ? null :  <CartDropdown/>
           }
