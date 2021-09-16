@@ -2,7 +2,7 @@
 
  import { initializeApp } from 'firebase/app';
  import { getAuth, GoogleAuthProvider,signInWithEmailAndPassword, signInWithPopup,createUserWithEmailAndPassword  } from 'firebase/auth';
- import { getFirestore,getDoc, doc, setDoc  } from 'firebase/firestore';
+ import {collection, getFirestore,getDoc, doc, setDoc,getDocs  } from 'firebase/firestore';
 
  // TODO: Add SDKs for Firebase products that you want to use
  // https://firebase.google.com/docs/web/setup#available-libraries
@@ -29,6 +29,8 @@
  export const auth = getAuth();
  export const firestore = getFirestore();
 
+
+
  export const SignInFunc = async (auth,email,password)=>{
     return  await signInWithEmailAndPassword(auth,email,password)
  }
@@ -48,6 +50,7 @@
    return  docSnap.data();
  }
 
+ 
  export const createUserProfile =async (userAuth,data)=>{
 
 
@@ -57,10 +60,22 @@
   const createdAt = new Date();
     if(!userAuth) return;
 
-    const docRef = doc(db, "users", uid);
+    const docRef = await doc(db, "users", uid);
+
+    const querySnapshot = await getDocs(collection(db, "users"));
+
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+    });
+
+    
+
 
     
     const docSnap = await getDoc(docRef); 
+
+    console.log({docSnap})
     
     if (!docSnap.exists()) {
       // doc.data() will be undefined in this case
@@ -94,6 +109,14 @@
 
 }
  
+
+export const addCollectionAndDocuments =(collectionKey,object)=>{
+
+  const collectionRef = collection(db, collectionKey)
+
+  console.log({collectionRef})
+
+}
   
  const provider = new GoogleAuthProvider();
  provider.setCustomParameters({ prompt: 'select_account' });

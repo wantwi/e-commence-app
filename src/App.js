@@ -7,16 +7,16 @@ import Shop from './pages/shop/Shop';
 import {Switch,Route,Redirect} from "react-router-dom"
 import Header from './components/header-component/Header';
 import Account from './pages/Accout/Account';
-import { auth,createUserProfile } from './firebase/firebase.util';
+import { auth,createUserProfile,addCollectionAndDocuments } from './firebase/firebase.util';
 import {connect} from 'react-redux';
 import { setcurrentUser } from './redux/user/user.action'
 import {createStructuredSelector} from 'reselect'
 import {selectCurrentUser} from "./redux/user/user.selector"
-
+import {selectionForPreview} from './redux/shop/shop.selector'
 
 
 function App(props) {
-const {setcurrentUser,currentUser} = props
+const {setcurrentUser,currentUser,collectionArray} = props
    // const [currentUser, setcurrentUser] = useState(null)
 
     const getCurrentUser =  async ()=>{
@@ -40,6 +40,9 @@ const {setcurrentUser,currentUser} = props
 
     useEffect(() => {
       getCurrentUser()
+
+      addCollectionAndDocuments('collections', collectionArray)
+
       return () => {
         getCurrentUser()
       
@@ -74,7 +77,8 @@ const {setcurrentUser,currentUser} = props
 // })
 
 const mapStateToProps =createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  collectionArray: selectionForPreview
 
 })
 
