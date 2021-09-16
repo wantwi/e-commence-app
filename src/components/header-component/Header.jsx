@@ -16,7 +16,7 @@ function Header({ currentUser,hidden }) {
   console.log({currentUser});
   return (
     <div className="header">
-      <Link to="/" className="logo-container">
+      <Link to="/" className="logo-container">WABeCOM
         <img className="logo" src={Logo} alt="logo" />
       </Link>
       <div className="options">
